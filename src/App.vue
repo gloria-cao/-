@@ -1,30 +1,37 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="app">
+    <HospitalTop/>
+    <div class="content">
+<!--      路由的切换-->
+      <router-view></router-view>
+    </div>
+    <div class="bottom">
+      <HospitalBottom/>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<script setup lang="ts">
+</script>
+
+<style lang="less" scoped>
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .content {
+    width: 1200px;
+    min-height: 700px;
+    margin-top: 70px;
+  }
+
+  .bottom {
+    width: 100%;
+    height: 50px;
+    //display: flex;
+    //justify-content:  space-between;
+  }
+
 }
 </style>
