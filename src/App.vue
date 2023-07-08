@@ -12,6 +12,13 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue";
+import cqRequest from "@/service";
+
+onMounted(() => {
+  cqRequest.get({url: '/hosp/hospital/1/10'}).then((res) => {
+    console.log("请求数据"+ res)})
+})
 </script>
 
 <style lang="less" scoped>
