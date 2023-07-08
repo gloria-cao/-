@@ -13,9 +13,13 @@ import App from './App.vue'
 import "@/router/index"
 import router from "@/router";
 
+// element-plus国际化
+import zhCnElement from "@/global/zhCn_Element";
+
 // 注册全局组件
 const app = createApp(App)
 app.use(router)
+app.use(zhCnElement)
 app.component('HospitalTop', HospitalTop).component('HospitalBottom', HospitalBottom)
 app.mount('#app')
 
