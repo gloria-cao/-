@@ -17,6 +17,7 @@ declare module 'vue' {
     ElRow: typeof import('element-plus/es')['ElRow']
     Hospital_bottom: typeof import('./src/components/hospital_bottom/index.vue')['default']
     Hospital_top: typeof import('./src/components/hospital_top/index.vue')['default']
+    Loader: typeof import('./src/components/Loader/loader.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios'
 import type { CQRequestConfig } from "./type";
+import {loaded, loading} from "@/App.vue";
 
 // 后续调用时，每创建一个新的实例就能够请求新的服务器
 class CQRequest {
@@ -9,16 +10,19 @@ class CQRequest {
         this.instance = axios.create(config)
 
         /* 请求拦截 */
-        // TODO: 这里加网络请求进度条
+        //TODO: 这里加网络请求进度条
         this.instance.interceptors.request.use((config) => {
+            // loading()
             return config
         }, (error) => {
             return error
         })
         /* 响应拦截 */
         this.instance.interceptors.response.use((res) => {
+            // loaded()
             return res
         }, (error) => {
+            //TODO:设置错误的弹窗
             return error
         })
 

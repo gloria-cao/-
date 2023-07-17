@@ -1,4 +1,5 @@
-import { createApp } from 'vue'
+import {  createApp } from 'vue'
+import pinia from './store'
 // 清楚默认样式
 import '@/assets/style/reset.scss'
 import '@/assets/style/reset.less'
@@ -6,6 +7,7 @@ import '@/assets/style/reset.less'
 // 引入全局组件
 import HospitalTop from '@/components/hospital_top/index.vue'
 import HospitalBottom from '@/components/hospital_bottom/index.vue'
+import Loader from './components/Loader/loader.vue'
 
 import App from './App.vue'
 
@@ -18,8 +20,9 @@ import zhCnElement from "@/global/zhCn_Element";
 
 // 注册全局组件
 const app = createApp(App)
+app.use(pinia)
 app.use(router)
 app.use(zhCnElement)
-app.component('HospitalTop', HospitalTop).component('HospitalBottom', HospitalBottom)
+app.component('HospitalTop', HospitalTop).component('HospitalBottom', HospitalBottom).component('Loading', Loader)
 app.mount('#app')
 

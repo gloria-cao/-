@@ -11,15 +11,17 @@
         <Level></Level>
         <!--    展示医院的结构-->
        <div class="card">
-         <Card class="item" v-for="item in 10 " :key="item"></Card>
+         <Card class="item" v-for="(item, index) in hospitalsList" :key="item.id" :hospitalInfo="item"></Card>
        </div>
 <!--        分页器-->
         <el-pagination
             v-model:current-page="pageNo"
             v-model:page-size="pageSize"
-            :page-sizes="[10, 20, 30, 40]"
+            :page-sizes="[6, 12, 18, 30]"
             layout="-> , sizes, prev, pager, next, jumper, total"
-            :total="40"
+            :total="totalHospitals"
+            @current-change="handleCurrentChangehange"
+            @size-change="handleSizeChange"
         />
       </el-col>
       <el-col :span="4">
@@ -31,18 +33,42 @@
 </template>
 
 <script setup lang="ts">
+// 导包
+import {onMounted, ref} from 'vue'
+
+// 内置包
+import useHomeStore from "@/store/home/home";
+
 import Carousel from './component/carousel/carousel.vue'
 import SearchForm from './component/searchForm/searchForm.vue'
 import Level from './component/level/level.vue'
 import Region from './component/region/region.vue'
 import Card from './component/card/card.vue'
-
-import { ref } from 'vue'
+import {storeToRefs} from "pinia";
 
 const pageNo = ref<number>(1)
-const pageSize = ref<number>(10)
+const pageSize = ref<number>(5)
 
-//分页器数据
+//  --------- 分页器业务逻辑 ----------
+const homeStore = useHomeStore()
+const { hospitalsList, totalHospitals } = storeToRefs(homeStore)
+/* 分页器发送网络请求 */
+function fetchHospitalList(page = pageNo.value, limit = pageSize.value) {
+  homeStore.getHospitalsListAction({page: page, limit: limit})
+}
+
+onMounted(() => { // 页面一旦挂载需要立刻发送请求
+  fetchHospitalList(pageNo.value, pageSize.value)
+})
+//  分页器页码改变
+function handleCurrentChangehange() {
+  fetchHospitalList(pageNo.value, pageSize.value)
+}
+function handleSizeChange() {
+  pageNo.value = 1
+  fetchHospitalList(pageNo.value, pageSize.value)
+}
+
 
 </script>
 
