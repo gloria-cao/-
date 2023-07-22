@@ -1,12 +1,15 @@
 <template>
   <div class="autocomplete">
     <el-autocomplete
+        v-model="searchName"
+        :fetch-suggestions="getData"
+        :trigger-on-focus="false"
         clearable
         placeholder="请输入查询医院"
     >
       <template #suffix>
         <el-button  :icon="Microphone" />
-        <el-button :icon="Search" />
+        <el-button @click="handleSearchBtn" :icon="Search" />
       </template>
     </el-autocomplete>
 
@@ -14,7 +17,26 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Search, Microphone } from '@element-plus/icons-vue'
+
+import useHomeStore from "@/store/home/home";
+import {storeToRefs} from "pinia";
+
+//  --------搜索医院名称----------
+const searchName = ref('')
+const homeStore = useHomeStore()
+const getData = (keyword: string, cb:any) => {
+  homeStore.getHospitalByHosNameAction( keyword)
+  const { searchHospital } = storeToRefs(homeStore)
+  console.log("result", [...searchHospital])
+  // 给下面的提示框传递数据展示
+  let result = [...searchHospital]
+  cb(result);
+}
+function handleSearchBtn() {
+  homeStore.getHospitalByHosNameAction( searchName.value)
+}
 </script>
 
 <style lang="less" scoped>

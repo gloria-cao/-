@@ -1,7 +1,6 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios'
 import type { CQRequestConfig } from "./type";
-import {loaded, loading} from "@/App.vue";
 
 // 后续调用时，每创建一个新的实例就能够请求新的服务器
 class CQRequest {
@@ -12,7 +11,29 @@ class CQRequest {
         /* 请求拦截 */
         //TODO: 这里加网络请求进度条
         this.instance.interceptors.request.use((config) => {
-            // loading()
+            // get请求映射params参数
+            if (config.method === 'get' && config.params) {
+                let url = config.url;
+                for (const propName of Object.keys(config.params)) {
+                    const value = config.params[propName];
+                    const part = encodeURIComponent(propName) + '='
+                    if (value !== null && typeof(value) !== "undefined") {
+                        if (typeof value === 'object') {
+                            for (const key of Object.keys(value)) {
+                                let params = propName + '[' + key + ']';
+                                const subPart = encodeURIComponent(params) + '='
+                                url += subPart + encodeURIComponent(value[key]) + "?";
+                                console.log("propName", propName)
+                            }
+                        } else {
+                            url += part + encodeURIComponent(value) + "?";
+                        }
+                    }
+                }
+                url = url.slice(0, -1);
+                config.params = {};
+                config.url = url;
+            }
             return config
         }, (error) => {
             return error

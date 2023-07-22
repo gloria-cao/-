@@ -31,6 +31,7 @@
     height: 50px;
     //display: flex;
     //justify-content:  space-between;
+    color:#011d2b;
   }
 
 }
