@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <el-card class="box-card" shadow="hover">
+    <el-card  class="box-card" shadow="hover" @click="handleGetHosDetail">
       <div class="text item">
         <div class="left">
           <div class="hospital_name">{{ hospitalInfo.hosname }}</div>
@@ -25,8 +25,21 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue'
+
+import {useRouter} from "vue-router";
+import useHospitalStore from "@/store/hospital/hospital";
+
 //  接收父组件传递过来的props
-defineProps(['hospitalInfo'])
+const props = defineProps(['hospitalInfo'])
+
+// --------路由跳转---------
+const $router = useRouter()
+const hospitalStore = useHospitalStore()
+const handleGetHosDetail = () => {
+  hospitalStore.getHospitalDatailAction(props.hospitalInfo.hoscode)
+  $router.push({path:'/hospital', query: {hoscode: props.hospitalInfo.hoscode}})
+}
 </script>
 
 <style lang="less" scoped>

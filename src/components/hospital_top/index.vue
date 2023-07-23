@@ -1,7 +1,7 @@
 <template>
   <div class="hospitalTop">
     <div class="content">
-      <div class="left">
+      <div class="left" @click="handleGoHome">
         <img class="logo" src="../../assets/images/logo.png" alt="">
         <p class="title">医院预约挂号统一平台</p>
       </div>
@@ -13,7 +13,16 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import {useRouter} from "vue-router";
+
+//点击顶部返回首页
+const $router = useRouter()
+const handleGoHome = () => {
+  $router.push({path: '/home'})
+}
+
+</script>
 
 <style scoped>
 .hospitalTop {

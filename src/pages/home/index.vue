@@ -12,15 +12,15 @@
         <LevelAndRegion @getlevelOrRegion="getlevelOrRegion" :levelAndRegion="hospitalRegion" :functionName="'地区: '"></LevelAndRegion>
         <!--    展示医院的结构-->
        <div class="card" v-if="hospitalsList.length > 0">
-         <Card class="item" v-for="(item, index) in hospitalsList" :key="item.id" :hospitalInfo="item"></Card>
+         <Card class="item"  v-for="(item, index) in hospitalsList" :key="item.id" :hospitalInfo="item"></Card>
        </div>
         <el-empty v-else description="暂无数据" />
 <!--        分页器-->
        <Pagination :levelOrRegion="levelOrRegionString"></Pagination>
       </el-col>
       <el-col :span="4">
-        <!--    地区    -->
-        <Carousel></Carousel>
+        <!--    静态数据    -->
+        <Tip></Tip>
       </el-col>
     </el-row>
   </div>
@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 // 外包
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { storeToRefs } from "pinia";
 
 // 内置包
@@ -39,6 +39,7 @@ import SearchForm from './component/searchForm/searchForm.vue'
 import Card from './component/card/card.vue'
 import LevelAndRegion from './component/levelAndRegion/levelAndRegion.vue'
 import Pagination from './component/pagination/pagination.vue'
+import Tip from "@/pages/home/component/tip/tip.vue";
 
 const homeStore = useHomeStore()
 const { hospitalsList, totalHospitals, hospitalLevel, hospitalRegion } = storeToRefs(homeStore)

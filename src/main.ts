@@ -15,11 +15,13 @@ import App from './App.vue'
 import "@/router/index"
 import router from "@/router";
 
-// element-plus国际化
+// 自定义插件
 import zhCnElement from "@/global/zhCn_Element";
+import icons from "@/global/register-icon";
 
 // 注册全局组件
 const app = createApp(App)
+app.use(icons)
 app.use(pinia)
 app.use(router)
 app.use(zhCnElement)

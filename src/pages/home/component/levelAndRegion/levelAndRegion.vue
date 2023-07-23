@@ -25,7 +25,7 @@ let activeCurrent = ref<string>('')
 function handleChangeLevelOrRegion(levelOrRegion: string) {
   activeCurrent.value = levelOrRegion
   $emit('getlevelOrRegion', levelOrRegion)
-//  发送网络请求，筛选符合条件
+//  发送网络请求，筛选符合条件，保留前一个筛选条件
   if(levelOrRegion.length === 1) {
   //  等级
     homeStore.getHospitalsListAction( 1,  6, { hostype: levelOrRegion})
