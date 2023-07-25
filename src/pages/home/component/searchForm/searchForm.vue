@@ -30,7 +30,6 @@ import {useRouter} from "vue-router";
 const searchName = ref('')
 const homeStore = useHomeStore()
 const getData = (keyword: string, cb:any) => {
-  console.log(homeStore.getHospitalByHosNameAction( keyword))
   homeStore.getHospitalByHosNameAction( keyword).then((res) => {
     const { searchHospital } = storeToRefs(homeStore)
     // 给下面的提示框传递数据展示，必须带有value
@@ -40,7 +39,6 @@ const getData = (keyword: string, cb:any) => {
         hosCode: item.hoscode // 医院编码
       }
     })
-    console.log("result", searchHospital, showResult)
     cb(showResult);
   },(rej) => {
     return new Error('没有该数据')

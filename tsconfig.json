@@ -18,13 +18,14 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,//防止switch没有break语句，会继续执行
+    "noFallthroughCasesInSwitch": true, //会防止在switch代码块里的两个case之间忘记添加break语句
     "baseUrl": ".",
-    "paths": {// 别名
+    "paths": {
+      // 别名
       "@/*": ["src/*"]
     }
   },
-//  指定编译列表
+  //  指定编译列表
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",

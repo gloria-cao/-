@@ -27,8 +27,10 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 
-import {useRouter} from "vue-router";
+import {onBeforeRouteLeave, useRouter} from "vue-router";
 import useHospitalStore from "@/store/hospital/hospital";
+import {localCache} from "@/util/cache";
+import {HOSPITALDETAIL} from "@/global/constance";
 
 //  接收父组件传递过来的props
 const props = defineProps(['hospitalInfo'])

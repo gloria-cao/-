@@ -1,35 +1,20 @@
 <template>
   <div class="register">
-    <div class="head">
-      <div class="left">{{hospitalDetail?.hospital?.hosname}}</div>
-      <div class="right">
-        <el-icon><Star /></el-icon>
-        <span>{{hospitalDetail?.hospital?.param?.hostypeString}}</span>
+    <hos-info :content-config="contentConfig"></hos-info>
+<!--  放置医院的数据  -->
+    <div class="department">
+      <div class="leftNav">
+        <ul>
+          <li v-for="(department, index) in hospitalDepartment" :key="department.depcode" :class="{active:index === currentIndex}" @click="handleDepartment(index)">{{department.depname}}</li>
+        </ul>
       </div>
-    </div>
-    <div class="content">
-      <div class="logo">
-        <img :src="`data:image/jpeg;base64,${hospitalDetail?.hospital?.logoData}`" alt="">
-      </div>
-      <div class="detail">
-        <div class="top">挂号规则</div>
-        <div class="center">
-          <div class="time">
-            <span>预约周期: {{hospitalDetail?.bookingRule?.cycle}}天</span>
-            <span>放号时间: {{hospitalDetail?.bookingRule?.releaseTime}}</span>
-            <span>停挂时间: {{hospitalDetail?.bookingRule?.stopTime}}</span>
-          </div>
-          <div class="address">具体地址: {{hospitalDetail?.hospital?.param?.fullAddress}}</div>
-          <div class="bus">规划路线: {{hospitalDetail?.hospital?.route}}</div>
-          <div class="quitTime">退号时间: {{hospitalDetail?.bookingRule?.quitTime}}</div>
-        </div>
-        <div class="bottom">
-          <h6>医院预约规则</h6>
-          <div class="rule">
-            <ul>
-              <li v-for="(item, index) in hospitalDetail?.bookingRule?.rule" :key="index">{{index+1}}:{{item}}</li>
-            </ul>
-          </div>
+      <div class="hosDepartment">
+<!--    用一个div代表：大科室与小科室    -->
+        <div class="showDepartment" v-for="department in hospitalDepartment" :key="department.depcode">
+          <h1 class="cur">{{department.depname}}</h1>
+          <ul>
+            <li v-for="item in department.children" :key="item.depcode">{{item.depname}}</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -37,55 +22,85 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 
+import contentConfig from "@/pages/hospital/component/register/config/register.config";
+import HosInfo from "@/pages/hospital/component/hosInfo/hosInfo.vue";
 import useHospitalStore from "@/store/hospital/hospital";
 import {storeToRefs} from "pinia";
 
 const hospitalStore = useHospitalStore()
-const { hospitalDetail } = storeToRefs(hospitalStore)
+const { hospitalDepartment } = storeToRefs(hospitalStore)
+
+//  控制科室响应式
+let currentIndex = ref<number>(0)
+const handleDepartment = (index) => {
+  currentIndex.value = index
+
+//  设置点击某个科室，滚动到最前面
+  let allH1 = document.querySelectorAll('.cur')
+  allH1[currentIndex.value].scrollIntoView({
+    behavior: 'smooth', // 滚动效果
+    block: 'start' // 滚动到的位置
+  })
+}
 
 </script>
 
 <style lang="less" scoped>
 .register {
-  .head {
+  .department {
     display: flex;
-    .left {
-      font-size: 30px;
-    }
-    .right {
-      margin-left: 15px;
-      color: #7f7f7f;
-    }
-  }
+    margin-top: 20px;
+    margin-left: 30px;
+    height: 500px;
 
-  .content {
-    display: flex;
-    margin-top: 30px;
-    .logo {
-      flex: 1.5;
-      img {
-        left: 30px;
-        height: 90px
-      }
-    }
-    .detail {
-      flex: 8.5;
-      .center {
-        margin-top: 15px;
-        color: #7f7f7f;
-        div{
-          margin-bottom: 7px;
-        }
-        .time span {
-          padding-right: 15px;
-        }
-      }
-
-      .bottom {
-        .rule {
-          margin-top: 15px;
+    .leftNav {
+      flex: 1;
+      height: 100%;
+      ul {
+        width: 100%;
+        height: 100%;
+        background: rgb(248, 248, 248);
+        display: flex;
+        flex-direction: column;
+        li {
+          flex: 1;
+          text-align: center;
           color: #7f7f7f;
+          font-size: 14px;
+          line-height: 30px;
+          &.active {
+            border-left: 1px solid red;
+            background-color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .hosDepartment {
+      flex: 9;
+      height: 100%;
+      overflow: auto;
+      // 隐藏滚动条
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      h1 {
+        background-color: rgb(248, 248, 248);
+      }
+
+      .showDepartment {
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+
+          li {
+            color: #7f7f7f;
+            width: 33%;
+            line-height: 40px;
+          }
         }
       }
     }

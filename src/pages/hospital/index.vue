@@ -13,6 +13,19 @@
 
 <script setup lang="ts">
 import HosMenu from '@/pages/hospital/component/hos-menu/hos-menu.vue'
+import useHospitalStore from "@/store/hospital/hospital";
+import {useRoute} from "vue-router";
+import {onMounted} from "vue";
+
+// 页面挂载就发送网络请求
+const hospitalStore = useHospitalStore()
+const $route = useRoute()
+onMounted(() => {
+  // 获取医院详情
+  hospitalStore.getHospitalDatailAction($route.query.hoscode as string)
+//  获取医院科室信息
+  hospitalStore.getHospitalDepartmentAction($route.query.hoscode as string)
+})
 </script>
 
 <style lang="less" scoped>

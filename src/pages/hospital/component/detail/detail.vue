@@ -1,10 +1,15 @@
 <template>
   <div class="detail">
-    医院详情
+    <hos-info :content-config="contentConfig"></hos-info>
+
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import HosInfo from '../hosInfo/hosInfo.vue'
+import contentConfig from './config/detail.config.ts'
+</script>
 
 <style lang="less" scoped>
+
 </style>

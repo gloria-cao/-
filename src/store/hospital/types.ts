@@ -1,3 +1,4 @@
 export interface IHospitalState {
-    hospitalDetail: any[]
+    hospitalDetail: any[],
+    hospitalDepartment: any[]
 }
