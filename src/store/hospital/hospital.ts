@@ -4,6 +4,7 @@ import {IHospitalState} from "@/store/hospital/types";
 import {getHospitalDepartment, getHospitalDetail} from "@/service/api/hospital";
 import {localCache} from "@/util/cache";
 import {HOSPITALDETAIL} from "@/global/constance";
+import {MessageNoticeFn} from "@/util/messageNotificationFn";
 
 const useHospitalStore = defineStore('hospital', {
     state: (): IHospitalState => ({
@@ -15,7 +16,8 @@ const useHospitalStore = defineStore('hospital', {
         async getHospitalDatailAction(hosCode: string) {
             const hosDetailResult = await getHospitalDetail(hosCode)
             this.hospitalDetail = hosDetailResult.data.data
-        //    缓存数据实现pinia数据持久化
+            MessageNoticeFn(hosDetailResult.data.code, hosDetailResult.data.message)
+            //    缓存数据实现pinia数据持久化
             localCache.setCache(HOSPITALDETAIL, this.hospitalDetail)
         },
 
@@ -23,7 +25,7 @@ const useHospitalStore = defineStore('hospital', {
         async getHospitalDepartmentAction(hosCode: string) {
             const hospitalDepartmentResult = await getHospitalDepartment(hosCode)
             this.hospitalDepartment = hospitalDepartmentResult.data.data
-            console.log("this.hospitalDepartment", this.hospitalDepartment)
+            MessageNoticeFn(hospitalDepartmentResult.data.code, hospitalDepartmentResult.data.message)
         }
     }
 })

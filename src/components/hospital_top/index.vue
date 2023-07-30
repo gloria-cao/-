@@ -7,18 +7,54 @@
       </div>
       <div class="right">
         <p class="help">帮助中心 </p>
-        <p class="login">登录 | 注册</p>
+<!--    仓库中有数据展示仓库中的数据    -->
+        <p class="login" @click="handleLogin" v-if="!localCache.getCache(USERNAME)">登录 | 注册</p>
+          <el-dropdown v-else>
+            <span class="el-dropdown-link">
+              {{localCache.getCache(USERNAME)}}
+              <el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>实名验证</el-dropdown-item>
+                <el-dropdown-item>订单挂号</el-dropdown-item>
+                <el-dropdown-item>就诊人管理</el-dropdown-item>
+                <el-dropdown-item @click="handleOutLogin">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import useUserStore from "@/store/user/user";
+import {localCache} from "@/util/cache";
+import {USER_TOKEN, USERNAME} from '@/global/constance'
 
 //点击顶部返回首页
 const $router = useRouter()
+const $route = useRoute()
 const handleGoHome = () => {
+  $router.push({path: '/home'})
+}
+
+// 登陆页面逻辑
+const userStore = useUserStore()
+const handleLogin = () => {
+  userStore.loginIsShow = !userStore.loginIsShow
+  // 刷新当前页面
+  $router.push({path: $route.path})
+}
+
+// 退出登录
+const handleOutLogin = () => {
+  localCache.clearCache()
+// 跳转首页
   $router.push({path: '/home'})
 }
 

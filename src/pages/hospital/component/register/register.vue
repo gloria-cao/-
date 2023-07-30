@@ -13,7 +13,7 @@
         <div class="showDepartment" v-for="department in hospitalDepartment" :key="department.depcode">
           <h1 class="cur">{{department.depname}}</h1>
           <ul>
-            <li v-for="item in department.children" :key="item.depcode">{{item.depname}}</li>
+            <li @click="handleShowLogin" v-for="item in department.children" :key="item.depcode">{{item.depname}}</li>
           </ul>
         </div>
       </div>
@@ -28,6 +28,7 @@ import contentConfig from "@/pages/hospital/component/register/config/register.c
 import HosInfo from "@/pages/hospital/component/hosInfo/hosInfo.vue";
 import useHospitalStore from "@/store/hospital/hospital";
 import {storeToRefs} from "pinia";
+import useUserStore from "@/store/user/user";
 
 const hospitalStore = useHospitalStore()
 const { hospitalDepartment } = storeToRefs(hospitalStore)
@@ -43,6 +44,12 @@ const handleDepartment = (index) => {
     behavior: 'smooth', // 滚动效果
     block: 'start' // 滚动到的位置
   })
+}
+
+//展示登陆页面
+const userStore = useUserStore()
+const handleShowLogin = () => {
+  userStore.loginIsShow = !userStore.loginIsShow
 }
 
 </script>

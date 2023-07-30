@@ -12,7 +12,7 @@
       >
         <template v-for="item in menuConfig.content" :key="item.index">
           <el-menu-item :index="item.index">
-            <component :is="item.icon" style="height: 20px; width: 20px; margin-right: 5px"></component>
+            <component class="icon" :is="item.icon"></component>
             <template #title>  {{item.name}}</template>
           </el-menu-item>
         </template>
@@ -40,8 +40,27 @@ const $route = useRoute()
       color: #7f7f7f;
     }
   }
+
+  .list {
+    .icon {
+      width:15px;
+      height:15px;
+    }
+  }
 }
 :deep(.el-menu) {
   width: 140px;
+}
+:deep(.el-menu-item) {
+  //height: 20px;
+  //width: 20px;
+  font-size: 15px;
+}
+:deep(.el-menu-item.is-active) {
+  font-size:20px;
+  .icon {
+    width:20px;
+    height:20px;
+  }
 }
 </style>

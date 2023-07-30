@@ -12,3 +12,8 @@ export interface THospitalsInfo {
     districtCode?: string
     status?: number;
 }
+
+// 请求登录
+export interface IhospitalLogin {
+
+}

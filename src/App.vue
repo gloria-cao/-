@@ -8,10 +8,16 @@
     <div class="bottom">
       <HospitalBottom/>
     </div>
+
+<!--  登陆页面  -->
+    <Login v-if="useStore.loginIsShow" />
   </div>
 </template>
 
 <script setup lang="ts">
+import useUserStore from "@/store/user/user";
+
+const useStore = useUserStore()
 </script>
 
 <style lang="less" scoped>
