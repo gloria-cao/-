@@ -12,12 +12,12 @@
             </div>
             <div class="time">
               <svg t="1688778773900" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5476" width="16" height="16"><path d="M512 64C264.8 64 64 264.8 64 512s200.8 448 448 448 448-200.8 448-448S759.2 64 512 64z m0 832c-212 0-384-172-384-384s172-384 384-384 384 172 384 384-172 384-384 384z m32-393.6l191.2 110.4-32 55.2L488.8 544H480V256h64v246.4z" p-id="5477" fill="#7f7f7f"></path></svg>
-              <span>每天 {{ hospitalInfo.bookingRule.releaseTime }} 放号</span>
+              <span>每天 {{ hospitalInfo.bookingRule?.releaseTime }} 放号</span>
             </div>
           </div>
         </div>
         <div class="right">
-          <img :src="`data:image/jpeg;base64,${hospitalInfo.logoData}`" alt="">
+          <img :src="`data:image/jpeg;base64,${hospitalInfo?.logoData}`" alt="">
         </div>
       </div>
     </el-card>

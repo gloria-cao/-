@@ -2,7 +2,7 @@
   <div class="menu">
     <div class="top">
       <el-icon><House /></el-icon>
-      <span class="path">/ 医院信息</span>
+      <span class="path">/ {{menuConfig.title}}</span>
     </div>
     <div class="list">
       <el-menu
@@ -22,9 +22,11 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue'
 import {useRoute} from "vue-router";
 
-import menuConfig from "@/pages/hospital/component/hos-menu/config/menu.config";
+// 配置文件传递过来
+const props = defineProps(['menuConfig'])
 
 // 获取当前路由信息
 const $route = useRoute()

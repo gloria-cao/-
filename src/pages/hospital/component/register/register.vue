@@ -13,7 +13,7 @@
         <div class="showDepartment" v-for="department in hospitalDepartment" :key="department.depcode">
           <h1 class="cur">{{department.depname}}</h1>
           <ul>
-            <li @click="handleShowLogin" v-for="item in department.children" :key="item.depcode">{{item.depname}}</li>
+            <li v-for="item in department.children" :key="item.depcode" @click="handleShowLogin(item)" >{{item.depname}}</li>
           </ul>
         </div>
       </div>
@@ -23,8 +23,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-import contentConfig from "@/pages/hospital/component/register/config/register.config";
+import {contentConfig} from "@/pages/hospital/component/register/config/register.config";
 import HosInfo from "@/pages/hospital/component/hosInfo/hosInfo.vue";
 import useHospitalStore from "@/store/hospital/hospital";
 import {storeToRefs} from "pinia";
@@ -32,6 +33,10 @@ import useUserStore from "@/store/user/user";
 
 const hospitalStore = useHospitalStore()
 const { hospitalDepartment } = storeToRefs(hospitalStore)
+
+// 路由器
+const $router = useRouter()
+const $route = useRoute()
 
 //  控制科室响应式
 let currentIndex = ref<number>(0)
@@ -46,10 +51,16 @@ const handleDepartment = (index) => {
   })
 }
 
-//展示登陆页面
+// 判断是否登录，如果登录进入挂号页面，没有登陆进入登陆页面
 const userStore = useUserStore()
-const handleShowLogin = () => {
-  userStore.loginIsShow = !userStore.loginIsShow
+const handleShowLogin = (item) => {
+  // 弹出登录页面
+  // TODO:路由鉴权
+  // userStore.loginIsShow = !userStore.loginIsShow
+
+//  点击某一个医院科室按钮，进入相应的预约挂号页面
+  $router.push({ path: "/hospital/register_step1" ,
+      query: {hoscode: $route.query.hoscode, depcode: item.depcode}})
 }
 
 </script>

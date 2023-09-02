@@ -41,7 +41,7 @@ const useUserStore = defineStore('user', {
         async getWXLoginAction(wxRedirectUri: string) {
             const WXloginResult = await getWXLogin(wxRedirectUri)
             this.wxLogin = WXloginResult.data.data
-        }
+        },
     }
 })
 

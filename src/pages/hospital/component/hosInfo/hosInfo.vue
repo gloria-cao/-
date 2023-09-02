@@ -51,7 +51,6 @@ import {HOSPITALDETAIL} from "@/global/constance";
 
 // 接收父组件传递参数
 const props = defineProps(['contentConfig'])
-console.log("props", props.contentConfig);
 
 //封装医院顶部信息
 // FIXME:pinia数据不能持久化，拿local数据可能会拿到旧数据，需要刷新

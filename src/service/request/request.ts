@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios'
 import type { CQRequestConfig } from "./type";
+import {USER_TOKEN} from "@/global/constance";
 
 // 后续调用时，每创建一个新的实例就能够请求新的服务器
 class CQRequest {
@@ -11,6 +12,11 @@ class CQRequest {
         /* 请求拦截 */
         //TODO: 这里加网络请求进度条
         this.instance.interceptors.request.use((config) => {
+            // token是公共数据
+            const token = localStorage.getItem(USER_TOKEN)
+            if(token) {
+                config.headers.token = token
+            }
             // get请求映射params参数
             if (config.method === 'get' && config.params) {
                 let url = config.url;

@@ -1,4 +1,5 @@
 const menuConfig = {
+    title: '医院信息',
     content: [
         {
             icon: 'Pointer',

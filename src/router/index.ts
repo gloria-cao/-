@@ -38,7 +38,42 @@ const route = createRouter({
                 {
                     path:'undiagnosis',
                     component: () => import('@/pages/hospital/component/undiagnosis/undiagnosis.vue')
-                }
+                },
+                {
+                    path: 'register_step1',
+                    component: () => import('@/pages/hospital/component/register/register_step1.vue')
+                },
+                {
+                    path: 'register_step2',
+                    component: () => import('@/pages/hospital/component/register/register_step2.vue')
+                },
+            ]
+        },
+        {
+            path: '/user',
+            component: () => import('@/pages/user/index.vue'),
+            redirect: '/user/order',
+            children: [
+                {
+                    path:'certification',
+                    component: () => import('@/pages/user/component/certification/index.vue')
+                },
+                {
+                    path:'order',
+                    component: () => import('@/pages/user/component/order/index.vue')
+                },
+                {
+                    path:'patient',
+                    component: () => import('@/pages/user/component/patient/index.vue')
+                },
+                {
+                    path:'profile',
+                    component: () => import('@/pages/user/component/profile/index.vue')
+                },
+                {
+                    path:'feedback',
+                    component: () => import('@/pages/user/component/feedback/index.vue')
+                },
             ]
         }
     ],

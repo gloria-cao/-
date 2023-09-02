@@ -2,7 +2,7 @@
   <div class="hospital">
 <!--  左侧菜单区域  -->
     <div class="menu">
-      <hos-menu></hos-menu>
+      <page-menu :menuConfig="menuConfig"></page-menu>
     </div>
 <!--  右侧内容展示区域  -->
     <div class="content">
@@ -12,10 +12,12 @@
 </template>
 
 <script setup lang="ts">
-import HosMenu from '@/pages/hospital/component/hos-menu/hos-menu.vue'
+import PageMenu from '@/components/page_menu/page_menu.vue'
 import useHospitalStore from "@/store/hospital/hospital";
 import {useRoute} from "vue-router";
 import {onMounted} from "vue";
+
+import menuConfig from "@/pages/hospital/component/config/menu.config";
 
 // 页面挂载就发送网络请求
 const hospitalStore = useHospitalStore()

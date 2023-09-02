@@ -20,7 +20,7 @@
 .hospitalBottom {
   width: 100%;
   height: 50px;
-  background-color: #9A97A9;
+  background-color: #cccccc;
   display: flex;
   justify-content: center;
 

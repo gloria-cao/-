@@ -18,9 +18,9 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>实名验证</el-dropdown-item>
-                <el-dropdown-item>订单挂号</el-dropdown-item>
-                <el-dropdown-item>就诊人管理</el-dropdown-item>
+                <el-dropdown-item @click="goUser('/user/certification')">实名验证</el-dropdown-item>
+                <el-dropdown-item @click="goUser('/user/order')">订单挂号</el-dropdown-item>
+                <el-dropdown-item @click="goUser('/user/patient')">就诊人管理</el-dropdown-item>
                 <el-dropdown-item @click="handleOutLogin">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -56,6 +56,11 @@ const handleOutLogin = () => {
   localCache.clearCache()
 // 跳转首页
   $router.push({path: '/home'})
+}
+
+// 进入其他页面
+const goUser = (path: string) => {
+  $router.push({path: path})
 }
 
 </script>
