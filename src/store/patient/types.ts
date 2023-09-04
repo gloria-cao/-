@@ -4,5 +4,10 @@ export interface IPatientState {
     cancelOrder: string,
     codeImg: string,
     payStatue: any,
-    certificationInfo: any
+    certificationInfo: any,
+    certificatesType: any[],
+    orderList: any,
+    patientList: any[],
+    statusList: any[],
+    addressList: any[]
 }

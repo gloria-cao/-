@@ -12,7 +12,8 @@
         <template #header>
           <div class="card-header">
             <div class="patient">请选择正确就诊人</div>
-            <el-button type="success" :icon="User">添加就诊人</el-button>
+<!--    跳转到添加就诊人模块        -->
+            <el-button type="success" :icon="User" @click="$router.push({path: '/user/patient', query:{fromIsShow: 0}})" >添加就诊人</el-button>
           </div>
         </template>
 
@@ -26,6 +27,7 @@
               :patient="patient"
               :index="index"
               :currentIndex="currentIndex"
+              :clientConfig="clientConfig"
           >
           </card-info>
         </div>
@@ -68,9 +70,10 @@ import {useRoute, useRouter} from "vue-router";
 import { User } from '@element-plus/icons-vue'
 
 import { registerConfig } from './config/register.config'
-import  CardInfo from './component/cardInfo.vue'
+import CardInfo from '@/components/card_info/cardInfo.vue'
 import useHospitalStore from "@/store/hospital/hospital";
 import usePatientStore from "@/store/patient/patient";
+import { clientConfig } from './config/register.config'
 
 const $route = useRoute()
 const $router = useRouter()

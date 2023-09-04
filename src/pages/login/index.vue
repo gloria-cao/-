@@ -75,7 +75,6 @@
 import {reactive, ref, computed, defineProps} from 'vue'
 import { Iphone, Lock, Back  } from '@element-plus/icons-vue'
 import type { FormRules } from 'element-plus'
-// import WxLogin from 'https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js'
 
 
 import CountDown from '@/components/count_down/index.vue'
@@ -83,6 +82,7 @@ import CountDown from '@/components/count_down/index.vue'
 // 登录页面逻辑
 import useUserStore from "@/store/user/user";
 import {storeToRefs} from "pinia";
+import {useRoute, useRouter} from "vue-router";
 
 // 开启验证码倒时
 let flag = ref(false); // false不开启倒计时
@@ -171,9 +171,17 @@ const handleWechat = () => {
 }
 
 // 点击用户登录
+const $route = useRoute()
+const $router = useRouter()
 const handleLoginBtn = async () => {
   // 验证表单都符合 elemnet-plue提供的方法，返回一个promise对象
   await form.value.validate();
+  let redirect = $route.query.redirect
+  if(redirect) {
+    await $router.push(redirect as string)
+  }else {
+    await $router.push('/home')
+  }
   //  当表单验证通过了才执行下面的内容
   try {
     let phone = loginForm.phone

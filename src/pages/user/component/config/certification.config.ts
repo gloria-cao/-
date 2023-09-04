@@ -15,15 +15,15 @@ const certificationConfig = {
             label: '用户姓名', placeholder: '请输入用户姓名', type: 'normal', value: 'name'
         },
         {
-            label: '证件类型', placeholder: '请选择证件类型', type: 'select',
-            options: [
-                {
-                    label: '身份证'
-                },
-                {
-                    label: '户口本'
-                }
-            ]
+            label: '证件类型', placeholder: '请选择证件类型', type: 'select', value: 'certificatesType',
+            // options: [
+            //     {
+            //         label: '身份证'
+            //     },
+            //     {
+            //         label: '户口本'
+            //     }
+            // ]
         },
         {
             label: '证件号码', placeholder: '请输入证件号码',  type: 'normal', value: 'certificatesNo'

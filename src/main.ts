@@ -16,6 +16,7 @@ import App from './App.vue'
 // 引入路由并安装理由
 import "@/router/index"
 import router from "@/router";
+import './permisstion'
 
 // 自定义插件
 import zhCnElement from "@/global/zhCn_Element";
